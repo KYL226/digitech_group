@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Header } from "@/components/sections/Header";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,12 +23,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const navLinks = [
+    { href: "/#services", label: "Services" },
+    { href: "/#realisations", label: "Realisations" },
+    { href: "/#process", label: "Process" },
+    { href: "/#contact", label: "Contact" },
+  ];
+
   return (
     <html
       lang="fr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header navLinks={navLinks} />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type NavLink = {
   href: string;
   label: string;
@@ -11,8 +13,9 @@ export function Header({ navLinks }: HeaderProps) {
   return (
     <header className="sticky top-0 z-20 border-b border-white/10 bg-[#070814]/90 backdrop-blur">
       <div className="mx-auto flex h-20 w-full max-w-6xl items-center justify-between px-6">
-        <a href="#" className="text-lg font-semibold tracking-wide">
-          DigiTech Agency
+        <a href="#" className="flex items-center gap-3 text-lg font-semibold tracking-wide">
+          <Image src="/logodigi.svg" alt="DigiTech logo" width={100} height={36} priority />
+          <span>DigiTech Group</span>
         </a>
         <nav className="hidden items-center gap-8 text-sm text-white/80 md:flex">
           {navLinks.map((link) => (

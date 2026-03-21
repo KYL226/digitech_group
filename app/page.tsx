@@ -1,21 +1,14 @@
 import { ContactSection } from "@/components/sections/ContactSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { Footer } from "@/components/sections/Footer";
-import { Header } from "@/components/sections/Header";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
+import { projects } from "@/data/projects";
 
 export default function Home() {
-  const navLinks = [
-    { href: "#services", label: "Services" },
-    { href: "#realisations", label: "Realisations" },
-    { href: "#process", label: "Process" },
-    { href: "#contact", label: "Contact" },
-  ];
-
   const services = [
     {
       title: "Site vitrine premium",
@@ -36,24 +29,6 @@ export default function Home() {
       title: "Acquisition digitale",
       description:
         "SEO, tracking et campagnes pour attirer un trafic qualifie en continu.",
-    },
-  ];
-
-  const projects = [
-    {
-      name: "Nova Finance",
-      tag: "Site corporate",
-      result: "+42% de demandes en 3 mois",
-    },
-    {
-      name: "Astra Studio",
-      tag: "Refonte branding + web",
-      result: "Temps moyen x1.8",
-    },
-    {
-      name: "Maison Elya",
-      tag: "E-commerce lifestyle",
-      result: "ROAS moyen 5.1",
     },
   ];
 
@@ -84,8 +59,6 @@ export default function Home() {
 
   return (
     <div className="bg-[#070814] text-white">
-      <Header navLinks={navLinks} />
-
       <main>
         <HeroSection />
         <ServicesSection services={services} />
