@@ -1,6 +1,17 @@
+/** Catégories utilisées pour filtres / SEO */
+export type ProjectCategory = "corporate" | "branding" | "e-commerce";
+
+export const PROJECT_CATEGORY_LABELS: Record<ProjectCategory, string> = {
+  corporate: "Corporate",
+  branding: "Branding + web",
+  "e-commerce": "E-commerce",
+};
+
 export type Project = {
   slug: string;
   name: string;
+  /** Catégorie pour filtres sur /realisations */
+  category: ProjectCategory;
   tag: string;
   result: string;
   description: string;
@@ -12,6 +23,7 @@ export const projects: Project[] = [
   {
     slug: "nova-finance",
     name: "Nova Finance",
+    category: "corporate",
     tag: "Site corporate",
     result: "+42% de demandes en 3 mois",
     description:
@@ -26,6 +38,7 @@ export const projects: Project[] = [
   {
     slug: "astra-studio",
     name: "Astra Studio",
+    category: "branding",
     tag: "Refonte branding + web",
     result: "Temps moyen x1.8",
     description:
@@ -40,6 +53,7 @@ export const projects: Project[] = [
   {
     slug: "maison-elya",
     name: "Maison Elya",
+    category: "e-commerce",
     tag: "E-commerce lifestyle",
     result: "ROAS moyen 5.1",
     description:

@@ -29,11 +29,18 @@ Site disponible sur [http://localhost:3000](http://localhost:3000).
 ## Structure actuelle
 
 - `app/page.tsx` : page d'accueil
+- `app/realisations/page.tsx` : index des réalisations (grille, filtres, recherche)
 - `app/realisations/[slug]/page.tsx` : page détail d'une réalisation
-- `app/layout.tsx` : layout global + header commun à toutes les pages
+- `app/sitemap.ts` : sitemap XML (`/sitemap.xml`)
+- `app/robots.ts` : robots.txt (`/robots.txt`)
+- `app/layout.tsx` : layout global, header, metadata de base, JSON-LD Organization + WebSite
 - `components/sections/*` : sections réutilisables du site (hero, services, projets, etc.)
+- `components/seo/JsonLd.tsx` : injection JSON-LD
 - `data/projects.ts` : source de vérité des réalisations (scalable)
+- `lib/site.ts` : URL canonique du site (`NEXT_PUBLIC_SITE_URL`)
 - `public/projects/*` : images d'illustration des projets
+
+Copier `.env.example` vers `.env.local` et définir `NEXT_PUBLIC_SITE_URL` en production pour un SEO correct (Open Graph, sitemap).
 
 ## Fonctionnalités déjà implémentées
 
@@ -44,7 +51,11 @@ Site disponible sur [http://localhost:3000](http://localhost:3000).
 - Pause automatique du carousel au survol
 - Navigation manuelle par boutons numérotés
 - Pages détails dynamiques par `slug` (`/realisations/[slug]`)
-- Données projets centralisées dans `data/projects.ts`
+- Page index `/realisations` : grille, filtres par catégorie, recherche par nom ou texte
+- Données projets centralisées dans `data/projects.ts` (champ `category` pour les filtres)
+- SEO : `metadataBase`, Open Graph + Twitter par projet, `canonical` sur les pages détail
+- Sitemap et `robots.txt` générés par Next.js
+- Données structurées JSON-LD : `Organization` + `WebSite` (layout), `BreadcrumbList` (index + détail), `CreativeWork` (détail projet)
 
 ## Ajouter une nouvelle réalisation
 
@@ -52,13 +63,14 @@ Site disponible sur [http://localhost:3000](http://localhost:3000).
 2. Ajouter un nouvel objet dans `data/projects.ts` avec:
    - `slug` (unique)
    - `name`
+   - `category` (`corporate` | `branding` | `e-commerce`, ou étendre `ProjectCategory` + `PROJECT_CATEGORY_LABELS`)
    - `tag`
    - `result`
    - `description`
    - `image`
    - `content` (tableau de paragraphes pour la page détail)
 
-La home et les pages détail se mettent à jour automatiquement.
+La home, `/realisations`, le sitemap et les pages détail se mettent à jour automatiquement.
 
 ## Suggestions d'amélioration (prochaines étapes)
 
@@ -68,14 +80,14 @@ La home et les pages détail se mettent à jour automatiquement.
   - Support swipe mobile
 
 - **Section réalisations**
-  - Créer une page index `/realisations` (grille complète)
-  - Ajouter filtres par catégorie (`corporate`, `e-commerce`, etc.)
-  - Ajouter recherche par nom de projet
+  - Pagination ou infinite scroll sur `/realisations` si beaucoup de projets
+  - Tri (date, nom) côté URL (`?sort=`)
+  - Partage social avec image OG dédiée par projet (déjà possible via OG ; ajouter visuels PNG/JPG pour de meilleurs aperçus)
 
 - **SEO & marketing**
-  - Ajouter metadata Open Graph par projet
-  - Générer un sitemap et robots
-  - Ajouter données structurées (`Organization`, `WebSite`, `Breadcrumb`)
+  - Fil d'Ariane visible (UI) sur toutes les pages internes
+  - Données structurées `FAQPage` si vous ajoutez une FAQ dédiée
+  - Soumission du sitemap dans Google Search Console
 
 - **Contact & conversion**
   - Brancher le formulaire contact à une API (email/CRM)

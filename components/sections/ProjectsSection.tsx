@@ -31,10 +31,20 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
   return (
     <section id="realisations" className="mx-auto w-full max-w-6xl px-6 py-20">
-      <h2 className="text-3xl font-semibold">Realisations recentes</h2>
-      <p className="mt-3 max-w-3xl text-white/70">
-        Le carousel defile automatiquement. Clique sur les numeros pour naviguer manuellement.
-      </p>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-3xl font-semibold">Realisations recentes</h2>
+          <p className="mt-3 max-w-3xl text-white/70">
+            Le carousel defile automatiquement. Clique sur les numeros pour naviguer manuellement.
+          </p>
+        </div>
+        <Link
+          href="/realisations"
+          className="shrink-0 rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-cyan-100 transition hover:border-cyan-300/50 hover:bg-white/5"
+        >
+          Voir toutes les realisations
+        </Link>
+      </div>
 
       <div
         className="mt-8 rounded-2xl border border-white/10 bg-[#0d1024] p-6 shadow-[0_20px_50px_rgba(7,8,20,0.3)]"
