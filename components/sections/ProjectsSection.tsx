@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/data/projects";
+import { ShareProjectButtons } from "@/components/share/ShareProjectButtons";
 
 type ProjectsSectionProps = {
   projects: Project[];
+  /** URL absolue du site (pour les liens de partage) */
+  siteUrl: string;
 };
 
-export function ProjectsSection({ projects }: ProjectsSectionProps) {
+export function ProjectsSection({ projects, siteUrl }: ProjectsSectionProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -96,6 +99,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
             >
               Voir la page detail
             </Link>
+            <div className="mt-5 border-t border-white/10 pt-5">
+              <ShareProjectButtons
+                url={`${siteUrl}/realisations/${activeProject.slug}`}
+                title={activeProject.name}
+                compact
+              />
+            </div>
           </div>
         </article>
       </div>

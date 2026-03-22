@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ShareProjectButtons } from "@/components/share/ShareProjectButtons";
 import { projects } from "@/data/projects";
 import { getSiteUrl } from "@/lib/site";
 
@@ -29,7 +30,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const title = project.name;
-  const ogImage = project.image.startsWith("http") ? project.image : `${siteUrl}${project.image}`;
+  const ogPath = project.ogImage ?? project.image;
+  const ogImage = ogPath.startsWith("http") ? ogPath : `${siteUrl}${ogPath}`;
+  const isRasterOg = /\.(png|jpe?g|webp|gif)$/i.test(ogPath);
 
   return {
     title,
@@ -45,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         {
           url: ogImage,
           width: 1200,
-          height: 800,
+          height: isRasterOg ? 630 : 800,
           alt: project.name,
         },
       ],
@@ -131,6 +134,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <p className="mt-4 inline-flex rounded-lg bg-cyan-300/10 px-3 py-2 text-sm text-cyan-100">
             {project.result}
           </p>
+          <div className="mt-6 border-t border-white/10 pt-6">
+            <ShareProjectButtons url={pageUrl} title={project.name} />
+          </div>
         </div>
 
         <Image

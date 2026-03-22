@@ -8,6 +8,7 @@ import {
 } from "@/data/projects";
 import { getSiteUrl } from "@/lib/site";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ShareProjectButtons } from "@/components/share/ShareProjectButtons";
 
 export const metadata: Metadata = {
   title: "Realisations | DigiTech Agency",
@@ -150,34 +151,40 @@ export default async function RealisationsIndexPage({ searchParams }: PageProps)
           </p>
         ) : (
           <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((project) => (
-              <li key={project.slug}>
-                <Link
-                  href={`/realisations/${project.slug}`}
-                  className="group block overflow-hidden rounded-2xl border border-white/10 bg-[#0d1024] transition hover:border-cyan-300/40 hover:shadow-[0_20px_50px_rgba(7,8,20,0.4)]"
+            {filtered.map((project) => {
+              const projectUrl = `${siteUrl}/realisations/${project.slug}`;
+              return (
+                <li
+                  key={project.slug}
+                  className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0d1024] transition hover:border-cyan-300/40 hover:shadow-[0_20px_50px_rgba(7,8,20,0.4)]"
                 >
-                  <div className="relative aspect-[3/2] overflow-hidden border-b border-white/10">
-                    <Image
-                      src={project.image}
-                      alt=""
-                      fill
-                      className="object-cover transition group-hover:scale-[1.02]"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
+                  <Link href={`/realisations/${project.slug}`} className="group flex flex-1 flex-col">
+                    <div className="relative aspect-[3/2] overflow-hidden border-b border-white/10">
+                      <Image
+                        src={project.image}
+                        alt=""
+                        fill
+                        className="object-cover transition group-hover:scale-[1.02]"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-5">
+                      <p className="text-xs uppercase tracking-[0.12em] text-cyan-100/80">
+                        {PROJECT_CATEGORY_LABELS[project.category]} · {project.tag}
+                      </p>
+                      <h2 className="mt-2 text-xl font-semibold group-hover:text-cyan-100">
+                        {project.name}
+                      </h2>
+                      <p className="mt-2 line-clamp-2 text-sm text-white/65">{project.description}</p>
+                      <p className="mt-3 text-sm font-medium text-cyan-200">{project.result}</p>
+                    </div>
+                  </Link>
+                  <div className="border-t border-white/10 bg-[#080d1a] px-5 py-4">
+                    <ShareProjectButtons url={projectUrl} title={project.name} compact />
                   </div>
-                  <div className="p-5">
-                    <p className="text-xs uppercase tracking-[0.12em] text-cyan-100/80">
-                      {PROJECT_CATEGORY_LABELS[project.category]} · {project.tag}
-                    </p>
-                    <h2 className="mt-2 text-xl font-semibold group-hover:text-cyan-100">
-                      {project.name}
-                    </h2>
-                    <p className="mt-2 line-clamp-2 text-sm text-white/65">{project.description}</p>
-                    <p className="mt-3 text-sm font-medium text-cyan-200">{project.result}</p>
-                  </div>
-                </Link>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>

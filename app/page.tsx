@@ -7,6 +7,7 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
 import { projects } from "@/data/projects";
+import { getSiteUrl } from "@/lib/site";
 
 export default function Home() {
   const services = [
@@ -62,7 +63,7 @@ export default function Home() {
       <main>
         <HeroSection />
         <ServicesSection services={services} />
-        <ProjectsSection projects={projects} />
+        <ProjectsSection projects={projects} siteUrl={getSiteUrl()} />
         <ProcessSection steps={steps} />
         <TestimonialSection />
         <FaqSection faqs={faqs} />
